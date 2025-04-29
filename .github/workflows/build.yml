@@ -1,22 +1,20 @@
-name: publish
+name: "build"
 on:
   push:
     branches:
       - 'main'
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   publish:
     name: Build and publish tagged container
-    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        targetBase:
-          - "typo3-base-apache2-phpfpm74"
+        targetBase: [ "typo3-base-apache2-phpfpm74" ]
     permissions:
       # actions: read|write|none
       actions: none
@@ -55,7 +53,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/sbuerk/typo3-base-apache2-phpfpm74
+            ghcr.io/sbuerk/${{ matrix.targetBase }}
           flavor: |
             latest=false
           tags: |
@@ -86,6 +84,4 @@ jobs:
             ./docker-bake.hcl
             cwd://${{ steps.meta.outputs.bake-file }}
           push: true
-          targets: ${{ matrix.targetBase }}-release
-          set: |
-            ghcr.io/sbuerk/typo3-base-apache2-phpfpm74-build:
+          targets: ${{ matrix.targetBase }}
