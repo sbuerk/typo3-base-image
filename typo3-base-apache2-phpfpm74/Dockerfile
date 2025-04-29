@@ -159,7 +159,6 @@ RUN set -x \
            autotools-dev \
            build-essential \
            file \
-           libquadmath0 \
            libtool \
            php7.4-dev \
     && apt-get clean \
