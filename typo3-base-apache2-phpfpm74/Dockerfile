@@ -133,6 +133,8 @@ RUN set -x \
             unzip \
             sqlite3 \
             jq \
+# set default php files \
+    && update-alternatives --set php /usr/bin/php7.4 \
 # Enable phar writing \
     && sed -i s/';phar.readonly = On'/'phar.readonly = Off'/ /etc/php/7.4/cli/php.ini \
 # Restrict cli based php.ini settings for php -S web server to have sane values in acceptance tests
