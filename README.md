@@ -2,11 +2,11 @@
 
 ## Description
 
-This repository provides the build defintion for base images
+This repository provides the build definition for base images
 to bundle TYPO3 projects containing webserver and php-fpm in
 one image highly customizable with environment variables for
-the majority of basic setups keeping the posibility to make
-advanced customatition in further build steps by replaceing
+the majority of basic setups keeping the possibility to make
+advanced customization in further build steps by replacing
 additional configuration files.
 
 ## Image variants:
