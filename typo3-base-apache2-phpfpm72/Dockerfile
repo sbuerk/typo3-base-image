@@ -153,6 +153,8 @@ RUN set -x \
     && chown -R www-data:www-data /var/www/html/project \
     && chown -R www-data:www-data /var/www/html/shared \
     && chmod -R 777 /var/www/html \
+# ensure run folder for php-fpm socket file \
+    && mkdir -p /run/php \
 # Arbitrary user needs to be able to bind to privileged ports
     && setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/apache2 \
 # Cleanup \
