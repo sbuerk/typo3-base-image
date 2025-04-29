@@ -13,6 +13,7 @@ additional configuration files.
 
 | image-name                         | contains                    |
 |------------------------------------|-----------------------------|
+| sbuerk/typo3-base-apache2-phpfpm72 | apache2, php(fpm/cli) 7.2.x |
 | sbuerk/typo3-base-apache2-phpfpm74 | apache2, php(fpm/cli) 7.4.x |
 
 

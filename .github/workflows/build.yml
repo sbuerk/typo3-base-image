@@ -1,8 +1,6 @@
 name: "build"
 on:
   push:
-    branches:
-      - 'main'
     tags:
       - '*'
   pull_request:
@@ -14,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetBase: [ "typo3-base-apache2-phpfpm74" ]
+        targetBase: [ "typo3-base-apache2-phpfpm72", "typo3-base-apache2-phpfpm74" ]
     permissions:
       # actions: read|write|none
       actions: none
