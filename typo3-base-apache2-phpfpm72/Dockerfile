@@ -163,7 +163,6 @@ RUN set -x \
            file \
            libtool \
            php7.2-dev \
-           php8.4* \
     && apt-get clean \
     && apt-get -y autoremove \
     && rm -Rf /var/lib/apt/lists/* \
