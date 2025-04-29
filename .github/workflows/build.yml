@@ -85,4 +85,6 @@ jobs:
             ./docker-bake.hcl
             cwd://${{ steps.meta.outputs.bake-file }}
           push: true
+          provenance: false
+          sbom: false
           targets: ${{ matrix.targetBase }}
