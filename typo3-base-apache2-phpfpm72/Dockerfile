@@ -183,6 +183,7 @@ RUN set -x \
 
 # Copy all configuration files (override existing files
 COPY ./etc/ /etc/
+COPY entrypoint.sh /usr/local/bin
 
 # finish configuraiton
 RUN set -x \
@@ -227,4 +228,5 @@ EXPOSE 80
 
 WORKDIR /var/www/html/project
 
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 CMD ["/usr/bin/supervisord"]
