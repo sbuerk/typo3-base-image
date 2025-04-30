@@ -19,6 +19,7 @@ jobs:
           - "typo3-base-apache2-phpfpm81"
           - "typo3-base-apache2-phpfpm82"
           - "typo3-base-apache2-phpfpm83"
+          - "typo3-base-apache2-phpfpm84"
     permissions:
       # actions: read|write|none
       actions: none

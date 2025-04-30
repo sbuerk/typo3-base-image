@@ -19,5 +19,6 @@ additional configuration files.
 | sbuerk/typo3-base-apache2-phpfpm81 | apache2, php(fpm/cli) 8.1.x |
 | sbuerk/typo3-base-apache2-phpfpm82 | apache2, php(fpm/cli) 8.2.x |
 | sbuerk/typo3-base-apache2-phpfpm83 | apache2, php(fpm/cli) 8.3.x |
+| sbuerk/typo3-base-apache2-phpfpm84 | apache2, php(fpm/cli) 8.4.x |
 
 
