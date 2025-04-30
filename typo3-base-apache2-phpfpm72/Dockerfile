@@ -155,10 +155,10 @@ RUN set -x \
     && chmod -R 777 /var/www/html \
 # ensure run folder for php-fpm socket file \
     && mkdir -p /run/php \
-    && chmod a+rw -p /run/php \
+    && chmod -R a+rw /run/php \
 # create log folders \
     && mkdir -p /var/log/supervisor \
-    && chmod a+rw -p /var/log \
+    && chmod -R a+rw /var/log \
 # Arbitrary user needs to be able to bind to privileged ports
     && setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/apache2 \
 # Cleanup \
