@@ -5,10 +5,10 @@ if [[ "$1" == "/usr/bin/supervisord" ]]; then
   APP_RUN_USER="${APP_RUN_USER:-www-data}"
   APP_RUN_GROUP="${APP_RUN_GROUP:-www-data}"
   PROJECT_FOLDER="${PROJECT_FOLDER:-/var/www/html/project}"
+  addgroup typo3 --gid=${APP_RUN_GROUP};
+  adduser -h ${PROJECT_FOLDER} -D -G typo3 --uid=${APP_RUN_USER} typo3;
   chown -R ${APP_RUN_USER}:${APP_RUN_GROUP} ${PROJECT_FOLDER}
   chown -R ${APP_RUN_USER}:${APP_RUN_GROUP} /var/www/html
-  addgroup typo3 --gid=${APP_RUN_GROUP}
-  adduser -h ${PROJECT_FOLDER} -D -G typo3 --uid=${APP_RUN_USER} typo3;
   exec "$@"
 fi
 
