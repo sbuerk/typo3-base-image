@@ -3,7 +3,7 @@ ARG TARGETPLATFORM
 LABEL org.opencontainers.image.authors="Stefan Bürk <stefan@buerk.tech>"
 LABEL org.opencontainers.image.source=https://github.com/sbuerk/typo3-base-image
 LABEL org.opencontainers.image.url=https://github.com/sbuerk/typo3-base-image/tree/main#readme
-LABEL org.opencontainers.image.description="sbuerk/typo3-base-apache2-phpfpm74"
+LABEL org.opencontainers.image.description="sbuerk/typo3-base-apache2-phpfpm8.0"
 
 RUN set -x \
 # basic exports \
@@ -85,34 +85,34 @@ RUN set -x \
 # APACHE2 \
             apache2 \
             libapache2-mod-fcgid \
-# PHP 7.4
-            php7.4 \
-            php7.4-apcu \
-            php7.4-bcmath \
-            php7.4-bz2 \
-            php7.4-cli \
-            php7.4-common \
-            php7.4-curl \
-            php7.4-dev \
-            php7.4-fpm \
-            php7.4-gd \
-            php7.4-gmp \
-            php7.4-imap \
-            php7.4-intl \
-            php7.4-json \
-            php7.4-ldap \
-            php7.4-mbstring \
-            php7.4-mysql \
-            php7.4-opcache \
-            php7.4-pgsql \
-            php7.4-pspell \
-            php7.4-readline \
-            php7.4-soap \
-            php7.4-sqlite3 \
-            php7.4-xml \
-            php7.4-xmlrpc \
-            php7.4-xsl \
-            php7.4-zip \
+# PHP 8.0
+            php8.0 \
+            php8.0-apcu \
+            php8.0-bcmath \
+            php8.0-bz2 \
+            php8.0-cli \
+            php8.0-common \
+            php8.0-curl \
+            php8.0-dev \
+            php8.0-fpm \
+            php8.0-gd \
+            php8.0-gmp \
+            php8.0-imap \
+            php8.0-intl \
+            php8.0-json \
+            php8.0-ldap \
+            php8.0-mbstring \
+            php8.0-mysql \
+            php8.0-opcache \
+            php8.0-pgsql \
+            php8.0-pspell \
+            php8.0-readline \
+            php8.0-soap \
+            php8.0-sqlite3 \
+            php8.0-xml \
+            php8.0-xmlrpc \
+            php8.0-xsl \
+            php8.0-zip \
 # php source / additional extensions
             php-pear \
             php-redis \
@@ -134,16 +134,16 @@ RUN set -x \
             sqlite3 \
             jq \
 # set default php files \
-    && update-alternatives --set php /usr/bin/php7.4 \
+    && update-alternatives --set php /usr/bin/php8.0 \
 # Enable phar writing \
-    && sed -i s/';phar.readonly = On'/'phar.readonly = Off'/ /etc/php/7.4/cli/php.ini \
+    && sed -i s/';phar.readonly = On'/'phar.readonly = Off'/ /etc/php/8.0/cli/php.ini \
 # Restrict cli based php.ini settings for php -S web server to have sane values in acceptance tests
-    && sed -i s/'memory_limit = -1'/'memory_limit = 2G'/ /etc/php/7.4/cli/php.ini \
-    && sed -i s/'max_execution_time = 30'/'max_execution_time = 240'/ /etc/php/7.4/cli/php.ini \
-    && sed -i s/'; max_input_vars = 1000'/'max_input_vars = 1500'/ /etc/php/7.4/cli/php.ini \
+    && sed -i s/'memory_limit = -1'/'memory_limit = 2G'/ /etc/php/8.0/cli/php.ini \
+    && sed -i s/'max_execution_time = 30'/'max_execution_time = 240'/ /etc/php/8.0/cli/php.ini \
+    && sed -i s/'; max_input_vars = 1000'/'max_input_vars = 1500'/ /etc/php/8.0/cli/php.ini \
 # Enable apc on cli for unit tests \
-    && echo "apc.enable_cli=1" >> /etc/php/7.4/mods-available/apcu.ini \
-    && echo "apc.slam_defense=0" >> /etc/php/7.4/mods-available/apcu.ini \
+    && echo "apc.enable_cli=1" >> /etc/php/8.0/mods-available/apcu.ini \
+    && echo "apc.slam_defense=0" >> /etc/php/8.0/mods-available/apcu.ini \
 # Install composer 2.x
     && curl -sSL https://getcomposer.org/download/latest-2.x/composer.phar -o /usr/bin/composer \
     && chmod +x /usr/bin/composer \
@@ -168,7 +168,7 @@ RUN set -x \
            build-essential \
            file \
            libtool \
-           php7.4-dev \
+           php8.0-dev \
            php8.4* \
     && apt-get clean \
     && apt-get -y autoremove \
