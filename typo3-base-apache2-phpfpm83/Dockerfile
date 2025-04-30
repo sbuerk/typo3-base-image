@@ -99,7 +99,6 @@ RUN set -x \
             php8.3-gmp \
             php8.3-imap \
             php8.3-intl \
-            php8.3-json \
             php8.3-ldap \
             php8.3-mbstring \
             php8.3-mysql \
