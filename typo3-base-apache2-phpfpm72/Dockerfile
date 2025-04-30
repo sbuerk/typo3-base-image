@@ -191,6 +191,7 @@ COPY entrypoint.sh /usr/local/bin
 
 # finish configuraiton
 RUN set -x \
+    && chmod a+x /usr/local/bin/entrypoint.sh \
     && a2dismod mpm_prefork \
     && a2enmod mpm_event \
     && a2enmod \
@@ -233,4 +234,4 @@ EXPOSE 80
 WORKDIR /var/www/html/project
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
-CMD ["/usr/bin/supervisord"]
+CMD [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
