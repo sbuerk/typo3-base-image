@@ -24,3 +24,9 @@ target "typo3-base-apache2-phpfpm81" {
   context = "./typo3-base-apache2-phpfpm81"
   platforms = ["linux/amd64", "linux/arm64"]
 }
+
+target "typo3-base-apache2-phpfpm82" {
+  inherits = ["docker-metadata-action"]
+  context = "./typo3-base-apache2-phpfpm82"
+  platforms = ["linux/amd64", "linux/arm64"]
+}
