@@ -1,0 +1,70 @@
+# envvars - default environment variables for apache2ctl
+
+# this won't be correct after changing uid
+unset HOME
+
+# for supporting multiple apache2 instances
+if [ "${APACHE_CONFDIR##/etc/apache2-}" != "${APACHE_CONFDIR}" ] ; then
+        SUFFIX="-${APACHE_CONFDIR##/etc/apache2-}"
+else
+        SUFFIX=
+fi
+
+APP_RUN_USER="${APP_RUN_USER:-www-data}"
+APP_RUN_GROUP="${APP_RUN_GROUP:-www-data}"
+
+# If user/group are integer and not names, we need to prefix them
+re='^[0-9]+$'
+if [[ ${APP_RUN_USER} =~ $re ]] ; then
+   APP_RUN_USER="#${APP_RUN_USER}"
+fi
+if [[ ${APP_RUN_GROUP} =~ $re ]] ; then
+   APP_RUN_GROUP="#${APP_RUN_GROUP}"
+fi
+
+# Since there is no sane way to get the parsed apache2 config in scripts, some
+# settings are defined via environment variables and then used in apache2ctl,
+# /etc/init.d/apache2, /etc/logrotate.d/apache2, etc.
+export APACHE_RUN_USER="${APP_RUN_USER:-www-data}"
+export APACHE_RUN_GROUP="${APP_RUN_GROUP:-www-data}"
+# temporary state file location. This might be changed to /run in Wheezy+1
+export APACHE_PID_FILE=/var/run/apache2$SUFFIX/apache2.pid
+export APACHE_RUN_DIR=/var/run/apache2$SUFFIX
+export APACHE_LOCK_DIR=/var/lock/apache2$SUFFIX
+# Only /var/log/apache2 is handled by /etc/logrotate.d/apache2.
+export APACHE_LOG_DIR=/var/log/apache2$SUFFIX
+
+## The locale used by some modules like mod_dav
+export LANG=C
+## Uncomment the following line to use the system default locale instead:
+#. /etc/default/locale
+
+export LANG
+
+## The command to get the status for 'apache2ctl status'.
+## Some packages providing 'www-browser' need '--dump' instead of '-dump'.
+#export APACHE_LYNX='www-browser -dump'
+
+## If you need a higher file descriptor limit, uncomment and adjust the
+## following line (default is 8192):
+APACHE_ULIMIT_MAX_FILES='ulimit -n 65536'
+
+## If you would like to pass arguments to the web server, add them below
+## to the APACHE_ARGUMENTS environment.
+#export APACHE_ARGUMENTS=''
+
+## Enable the debug mode for maintainer scripts.
+## This will produce a verbose output on package installations of web server modules and web application
+## installations which interact with Apache
+#export APACHE2_MAINTSCRIPT_DEBUG=1
+
+export APACHE2_RUN_SERVERNAME="${APP_RUN_SERVERNAME:-localhost}"
+export APACHE2_ADMIN="${APP_ADMIN:-webmaster@localhost}"
+export APACHE2_DOCROOT="${PROJECT_DOCROOT:-/var/www/html/project}"
+export APACHE2_MPMEVENT_START_SERVERS="${APACHE2_MPMEVENT_START_SERVERS:-2}"
+export APACHE2_MPMEVENT_MIN_SPARE_THREADS="${APACHE2_MPMEVENT_MIN_SPARE_THREADS:-25}"
+export APACHE2_MPMEVENT_MAX_SPARE_THREADS="${APACHE2_MPMEVENT_MAX_SPARE_THREADS:-75}"
+export APACHE2_MPMEVENT_THREAD_LIMIT="${APACHE2_MPMEVENT_THREAD_LIMIT:-64}"
+export APACHE2_MPMEVENT_THREADS_PER_CHILD="${APACHE2_MPMEVENT_THREADS_PER_CHILD:-25}"
+export APACHE2_MPMEVENT_MAX_REQUEST_WORKERS="${APACHE2_MPMEVENT_MAX_REQUEST_WORKERS:-150}"
+export APACHE2_MPMEVENT_MAX_CONNECTIONS_PER_CHILD="${APACHE2_MPMEVENT_MAX_CONNECTIONS_PER_CHILD:-0}"
