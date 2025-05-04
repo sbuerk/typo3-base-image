@@ -135,12 +135,6 @@ RUN set -x \
             jq \
 # set default php files \
     && update-alternatives --set php /usr/bin/php7.2 \
-# Enable phar writing \
-    && sed -i s/';phar.readonly = On'/'phar.readonly = Off'/ /etc/php/7.2/cli/php.ini \
-# Restrict cli based php.ini settings for php -S web server to have sane values in acceptance tests
-    && sed -i s/'memory_limit = -1'/'memory_limit = 2G'/ /etc/php/7.2/cli/php.ini \
-    && sed -i s/'max_execution_time = 30'/'max_execution_time = 240'/ /etc/php/7.2/cli/php.ini \
-    && sed -i s/'; max_input_vars = 1000'/'max_input_vars = 1500'/ /etc/php/7.2/cli/php.ini \
 # Enable apc on cli for unit tests \
     && echo "apc.enable_cli=1" >> /etc/php/7.2/mods-available/apcu.ini \
     && echo "apc.slam_defense=0" >> /etc/php/7.2/mods-available/apcu.ini \
@@ -224,8 +218,16 @@ ENV APP_RUN_USER="www-data" \
     PHPFPM_PM_MAX_SPARE_SERVERS=3 \
     PHPFPM_PM_MAX_SPAWN_RATE=32 \
     PHPFPM_PROCESS_IDLE_TIMEOUT="10s" \
-    PHPFPM_FPM_MEMORYLIMIT="256M" \
     PHPFPM_MAX_REQUESTS=0 \
+    PHP_INI_SHORT_OPEN_TAG="Off" \
+    PHP_INI_DEFAULT_TIMEZONE="Europe/Berlin" \
+    PHPFPM_INI_MAX_EXECUTION_TIME=300 \
+    PHPFPM_INI_MAX_INPUT_TYIME=60 \
+    PHPFPM_INI_MEMORYLIMIT="256M" \
+    PHPFPM_INI_MAX_INPUT_VARS=2500 \
+    PHPFPM_INI_POST_MAX_SIZE="8M" \
+    PHPFPM_INI_UPLOAD_MAX_FILESIZE="2M" \
+    PHPFPM_INI_MAX_FILE_UPLOADS=20 \
     PROJECT_FOLDER="/var/www/html/project" \
     PROJECT_DOCROOT="/var/www/html/project"
 
