@@ -50,6 +50,7 @@ RUN set -x \
     && echo -n en_US.UTF-8 > /etc/container_environment/LC_CTYPE \
 # Install further packages
     && apt-get install -y --no-install-recommends \
+            cron \
             curl \
             bar \
             bash \
