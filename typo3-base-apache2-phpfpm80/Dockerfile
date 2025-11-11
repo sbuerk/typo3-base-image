@@ -106,6 +106,7 @@ RUN set -x \
             php8.0-opcache \
             php8.0-pgsql \
             php8.0-pspell \
+            php8.0-redis \
             php8.0-readline \
             php8.0-soap \
             php8.0-sqlite3 \

@@ -107,6 +107,7 @@ RUN set -x \
             php8.3-pgsql \
             php8.3-pspell \
             php8.3-readline \
+            php8.3-redis \
             php8.3-soap \
             php8.3-sqlite3 \
             php8.3-xml \

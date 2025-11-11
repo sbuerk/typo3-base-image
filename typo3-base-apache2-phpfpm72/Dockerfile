@@ -107,6 +107,7 @@ RUN set -x \
             php7.2-opcache \
             php7.2-pgsql \
             php7.2-pspell \
+            php7.2-redis \
             php7.2-readline \
             php7.2-soap \
             php7.2-sqlite3 \
