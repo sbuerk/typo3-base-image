@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ARG TARGETPLATFORM
 LABEL org.opencontainers.image.authors="Stefan Bürk <stefan@buerk.tech>"
 LABEL org.opencontainers.image.source=https://github.com/sbuerk/typo3-base-image
@@ -63,7 +63,7 @@ RUN set -x \
             ncdu \
             dirmngr \
             gpg-agent \
-            ack-grep \
+            ack \
             bzip2 \
             pbzip2 \
             patch \
@@ -76,8 +76,10 @@ RUN set -x \
             libz-dev \
             gnupg \
             openssh-client \
-# Add ondrej php ppa
-    && LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php \
+# Add ondrej php repository (ppa:ondrej/php is being merged into packages.sury.org)
+    && curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb \
+    && dpkg -i /tmp/debsuryorg-archive-keyring.deb \
+    && echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ jammy main" > /etc/apt/sources.list.d/php.list \
 # Refresh apt and rerun dist upgrade
     && apt-get update -y \
     && apt-get dist-upgrade -y --no-install-recommends \
@@ -115,8 +117,8 @@ RUN set -x \
             php8.4-zip \
 # php source / additional extensions
             php-pear \
-            php-redis \
-            php-memcached \
+            php8.4-redis \
+            php8.4-memcached \
 # image handling tools
             graphicsmagick \
             imagemagick \
@@ -133,6 +135,8 @@ RUN set -x \
             unzip \
             sqlite3 \
             jq \
+# Require the PHP 8.4 build fixing CVE-2026-109618 and CVE-2026-109619 \
+    && dpkg --compare-versions "$(dpkg-query -W -f='${Version}' php8.4-common)" ge "8.4.27" \
 # set default php files \
     && update-alternatives --set php /usr/bin/php8.4 \
 # Enable apc on cli for unit tests \
@@ -163,6 +167,7 @@ RUN set -x \
            file \
            libtool \
            php8.4-dev \
+           php8.5* \
     && apt-get clean \
     && apt-get -y autoremove \
     && rm -Rf /var/lib/apt/lists/* \
